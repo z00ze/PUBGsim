@@ -19,10 +19,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Map mainmap = new Map("erangel");
-
-
-        LinkedList<Death> deaths = new LinkedList<Death>();
 
         JsonParser parser = new JsonParser();
         String json = openJsonFile("match1.json");
@@ -31,76 +27,20 @@ public class Main extends Application {
             JsonArray rootdata = jsonTree.getAsJsonArray();
             for (int i = 0; i < rootdata.size(); i++) {
                 if(rootdata.get(i).isJsonObject()){
-                        if(rootdata.get(i).getAsJsonObject().has("common") && rootdata.get(i).getAsJsonObject().get("common").getAsJsonObject().has("isGame")){
-                            double phase = rootdata.get(i).getAsJsonObject().get("common").getAsJsonObject().get("isGame").getAsDouble();
-                            // ignoring phases before 1st bluezone
-                            if(phase > 0.4){
-                                String event = rootdata.get(i).getAsJsonObject().get("_T").getAsString();
-
-                                if(event.equals("LogPlayerTakeDamage") && rootdata.get(i).getAsJsonObject().get("damageTypeCategory").getAsString().equals("Damage_BlueZone")) {
-
-                                    if (rootdata.get(i).getAsJsonObject().has("victim") && rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().has("location")) {
-                                        float x = rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().get("location").getAsJsonObject().get("x").getAsFloat();
-                                        float y = rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().get("location").getAsJsonObject().get("y").getAsFloat();
-                                        float z = rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().get("location").getAsJsonObject().get("z").getAsFloat();
-                                        for (int a = 0; a < mainmap.phases.size(); a++) {
-                                            if (mainmap.phases.get(a).phase == phase) {
-                                                mainmap.phases.get(a).addEvent(new Event(event, x, y, z));
-                                            }
-                                        }
-                                    }
-
-                                    /*
-                                    if (rootdata.get(i).getAsJsonObject().has("attacker") && rootdata.get(i).getAsJsonObject().get("attacker").getAsJsonObject().has("location")) {
-                                        float x = rootdata.get(i).getAsJsonObject().get("attacker").getAsJsonObject().get("location").getAsJsonObject().get("x").getAsFloat();
-                                        float y = rootdata.get(i).getAsJsonObject().get("attacker").getAsJsonObject().get("location").getAsJsonObject().get("y").getAsFloat();
-                                        float z = rootdata.get(i).getAsJsonObject().get("attacker").getAsJsonObject().get("location").getAsJsonObject().get("z").getAsFloat();
-                                        for (int a = 0; a < mainmap.phases.size(); a++) {
-                                            if (mainmap.phases.get(a).phase == phase) {
-                                                mainmap.phases.get(a).addEvent(new Event(event, x, y, z));
-                                            }
-                                        }
-                                    }
-                                    */
-                                    /*
-                                    if (rootdata.get(i).getAsJsonObject().has("character") && rootdata.get(i).getAsJsonObject().get("character").getAsJsonObject().has("location")) {
-                                        float x = rootdata.get(i).getAsJsonObject().get("character").getAsJsonObject().get("location").getAsJsonObject().get("x").getAsFloat();
-                                        float y = rootdata.get(i).getAsJsonObject().get("character").getAsJsonObject().get("location").getAsJsonObject().get("y").getAsFloat();
-                                        float z = rootdata.get(i).getAsJsonObject().get("character").getAsJsonObject().get("location").getAsJsonObject().get("z").getAsFloat();
-                                        for (int a = 0; a < mainmap.phases.size(); a++) {
-                                            if (mainmap.phases.get(a).phase == phase) {
-                                                mainmap.phases.get(a).addEvent(new Event(event, x, y, z));
-                                            }
-                                        }
-                                    }
-                                    */
-                                }
-                            }
-
-                        }
-
-                        if(rootdata.get(i).getAsJsonObject().get("_T").getAsString().equals("LogPlayerKill")){
-                            deaths.add(new Death(rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().get(("location")).getAsJsonObject().get("x").getAsFloat(),rootdata.get(i).getAsJsonObject().get("victim").getAsJsonObject().get(("location")).getAsJsonObject().get("y").getAsFloat()));
-                        }
+                    Event event = new Event(rootdata.get(i).getAsJsonObject());
+                    System.out.println(event.toString());
                 }
             }
         }
         else{
             System.out.println("FAIL");
         }
-        /*
-        System.out.println(mainmap.phases.get(4).phase);
-        LinkedList<Event> events = mainmap.phases.get(4).getEvents();
-        */
-        LinkedList<Event> events = new LinkedList<>();
-        for(int i = 0; i < mainmap.phases.size(); i++){
-            events.addAll(mainmap.phases.get(i).getEvents());
-        }
 
         // END OF JSON
         //Creating an image
         Image image = new Image(new FileInputStream(System.getProperty("user.dir")+"/src/Erangel_Main_High_Res_SMALL.jpg"));
         int width = (int)image.getWidth();
+
         int height = (int)image.getHeight();
 
         //Creating a writable image
@@ -124,14 +64,14 @@ public class Main extends Application {
                 writer.setColor(x, y, color);
             }
         }
-        for(int i = 0; i < events.size(); i++){
+/*        for(int i = 0; i < events.size(); i++){
             Color color = new Color(1,0,0,1);
             System.out.println(events.get(i).getX());
             System.out.println(events.get(i).getY());
             int x = (Math.round(events.get(i).getX()) / 1000);
             int y = (Math.round(events.get(i).getY()) / 1000);
             writer_blank.setColor(x,y, color);
-        }
+        }*/
 
         //Setting the image view
         ImageView imageView = new ImageView(wImage);
