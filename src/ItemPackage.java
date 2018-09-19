@@ -23,4 +23,13 @@ public class ItemPackage {
     public LinkedList<Item> getItems() {
         return items;
     }
+
+    @Override
+    public String toString() {
+        return "ItemPackage{" +
+                "itemPackageId='" + itemPackageId + '\'' +
+                ", location=" + location +
+                ", items=" + items +
+                '}';
+    }
 }

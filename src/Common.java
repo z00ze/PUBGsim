@@ -9,4 +9,11 @@ public class Common {
     public float getIsGame() {
         return isGame;
     }
+
+    @Override
+    public String toString() {
+        return "Common{" +
+                "isGame=" + isGame +
+                '}';
+    }
 }

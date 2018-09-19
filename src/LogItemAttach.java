@@ -21,4 +21,13 @@ public class LogItemAttach {
     public Item getChildItem() {
         return childItem;
     }
+
+    @Override
+    public String toString() {
+        return "LogItemAttach{" +
+                "character=" + character +
+                ", parentItem=" + parentItem +
+                ", childItem=" + childItem +
+                '}';
+    }
 }

@@ -1,5 +1,5 @@
 public class LogItemPickup {
-    // "character": {Character}, "item": {Item}'
+    // "character": {Character}, "item": {Item}
     Character character;
     Item item;
 

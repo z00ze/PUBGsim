@@ -1,8 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class Main extends Application {
     @Override
@@ -23,19 +18,32 @@ public class Main extends Application {
         JsonParser parser = new JsonParser();
         String json = openJsonFile("match1.json");
         JsonElement jsonTree = parser.parse(json);
+        int count = 0;
         if(jsonTree.isJsonArray()) {
             JsonArray rootdata = jsonTree.getAsJsonArray();
             for (int i = 0; i < rootdata.size(); i++) {
                 if(rootdata.get(i).isJsonObject()){
-                    Event event = new Event(rootdata.get(i).getAsJsonObject());
-                    System.out.println(event.toString());
+                    JsonObject obj = rootdata.get(i).getAsJsonObject();
+                    if(obj.has("common") && obj.get("common").getAsJsonObject().has("isGame")){
+                        if((obj.get("common").getAsJsonObject().get("isGame").getAsFloat() > 0.5)){
+                            if(obj.has("_T") && obj.get("_T").getAsString().equals("LogItemAttach")){
+                                if(obj.has("character") && obj.get("character").getAsJsonObject().has("name")){
+                                    if(obj.get("character").getAsJsonObject().get("name").getAsString().equals("MaXZoiDZ")){
+                                        Event event = new Event(rootdata.get(i).getAsJsonObject());
+                                        System.out.println(event.getLogItemAttach().toString());
+                                    }
+                                }
+                            }
+
+                        }
+                    }
                 }
             }
         }
         else{
             System.out.println("FAIL");
         }
-
+        System.out.println(count);
         // END OF JSON
         //Creating an image
         Image image = new Image(new FileInputStream(System.getProperty("user.dir")+"/src/Erangel_Main_High_Res_SMALL.jpg"));

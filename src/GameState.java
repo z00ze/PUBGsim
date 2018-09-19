@@ -70,4 +70,21 @@ public class GameState {
     public float getRedZoneRadius() {
         return redZoneRadius;
     }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "elapsedTime=" + elapsedTime +
+                ", numAliveTeams=" + numAliveTeams +
+                ", numJoinPlayers=" + numJoinPlayers +
+                ", numStartPlayers=" + numStartPlayers +
+                ", numAlivePlayers=" + numAlivePlayers +
+                ", safetyZonePosition=" + safetyZonePosition +
+                ", safetyZoneRadius=" + safetyZoneRadius +
+                ", poisonGasWarningPosition=" + poisonGasWarningPosition +
+                ", poisonGasWarningRadius=" + poisonGasWarningRadius +
+                ", redZonePosition=" + redZonePosition +
+                ", redZoneRadius=" + redZoneRadius +
+                '}';
+    }
 }

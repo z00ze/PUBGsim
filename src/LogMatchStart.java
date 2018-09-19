@@ -1,3 +1,8 @@
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.LinkedList;
 
 public class LogMatchStart {
@@ -11,10 +16,11 @@ public class LogMatchStart {
     boolean isEventMode;
     String blueZoneCustomOptions;
 
-    public LogMatchStart(String mapName, String weatherId, LinkedList<Character> characters, String cameraViewBehaviour, int teamSize, boolean isCustomGame, boolean isEventMode, String blueZoneCustomOptions) {
+    public LogMatchStart(String mapName, String weatherId, JsonElement element, String cameraViewBehaviour, int teamSize, boolean isCustomGame, boolean isEventMode, String blueZoneCustomOptions) {
         this.mapName = mapName;
         this.weatherId = weatherId;
-        this.characters = characters;
+        this.characters = (new Gson().fromJson(element, new TypeToken<LinkedList<Character>>() {
+        }.getType()));
         this.cameraViewBehaviour = cameraViewBehaviour;
         this.teamSize = teamSize;
         this.isCustomGame = isCustomGame;

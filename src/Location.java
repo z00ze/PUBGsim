@@ -30,4 +30,13 @@ public class Location {
     public float getZ() {
         return z;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 }

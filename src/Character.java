@@ -10,12 +10,14 @@ public class Character {
     String accountId;
 
     public Character(JsonObject element) {
-        this.name = element.get("name").getAsString();
-        this.teamId = element.get("teamId").getAsInt();
-        this.health = element.get("health").getAsFloat();
-        this.location = new Location(element.get("location").getAsJsonObject());
-        this.ranking = element.get("ranking").getAsInt();
-        this.accountId = element.get("accountId").getAsString();
+        if(!element.toString().equals("{}")) {
+            this.name = element.get("name").getAsString();
+            this.teamId = element.get("teamId").getAsInt();
+            this.health = element.get("health").getAsFloat();
+            this.location = new Location(element.get("location").getAsJsonObject());
+            this.ranking = element.get("ranking").getAsInt();
+            this.accountId = element.get("accountId").getAsString();
+        }
     }
 
     public String getName() {
@@ -40,5 +42,17 @@ public class Character {
 
     public String getAccountId() {
         return accountId;
+    }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "name='" + name + '\'' +
+                ", teamId=" + teamId +
+                ", health=" + health +
+                ", location=" + location +
+                ", ranking=" + ranking +
+                ", accountId='" + accountId + '\'' +
+                '}';
     }
 }

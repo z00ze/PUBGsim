@@ -33,4 +33,15 @@ public class LogPlayerAttack {
     public Vehicle getVehicle() {
         return vehicle;
     }
+
+    @Override
+    public String toString() {
+        return "LogPlayerAttack{" +
+                "attackId=" + attackId +
+                ", attacker=" + attacker +
+                ", attackType='" + attackType + '\'' +
+                ", weapon=" + weapon +
+                ", vehicle=" + vehicle +
+                '}';
+    }
 }
