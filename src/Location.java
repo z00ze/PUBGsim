@@ -8,15 +8,20 @@ public class Location {
 
     public Location(JsonObject element) {
         if(!element.toString().equals("{}")) {
-            this.x = element.get("x").getAsFloat();
-            this.y = element.get("y").getAsFloat();
-            this.z = element.get("z").getAsFloat();
+            this.x = (element.get("x").getAsFloat() > 800000) ? 800000 : element.get("x").getAsFloat();
+            this.y = (element.get("y").getAsFloat() > 800000) ? 800000 : element.get("y").getAsFloat();
+            this.z =(element.get("z").getAsFloat() > 800000) ? 800000 : element.get("z").getAsFloat();
         }
         else{
             this.x = 0;
             this.y = 0;
             this.z = 0;
         }
+    }
+    public Location(float x, float y, float z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public float getX() {

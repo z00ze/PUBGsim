@@ -14,9 +14,10 @@ import javafx.stage.Stage;
 import sun.awt.image.ImageWatched;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage stage) throws IOException, ParseException {
-
+        String[] colors = {"#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000"};
         Match main = new Match("match1.json");
 
         //Creating an image
@@ -46,19 +47,14 @@ public class Main extends Application {
             }
         }
         LinkedList<Event> events = main.getEvents();
-        for(int i = 0; i < events.size(); i++){
-            if(events.get(i).eventType != Event.EventType.LogPlayerAttack) continue;
-            Color attacker = new Color(1,0,0,1);
-            int ax = (Math.round(events.get(i).getLogPlayerAttack().getAttacker().getLocation().getX()) / 1000);
-            int ay = (Math.round(events.get(i).getLogPlayerAttack().getAttacker().getLocation().getY()) / 1000);
-            writer_blank.setColor(ax,ay, attacker);
-        }
-        for(int i = 0; i < events.size(); i++){
-            if(events.get(i).eventType != Event.EventType.LogPlayerTakeDamage) continue;
-            Color victim = new Color(1,1,0,1);
-            int vx = (Math.round(events.get(i).getLogPlayerTakeDamage().getVictim().getLocation().getX()) / 1000);
-            int vy = (Math.round(events.get(i).getLogPlayerTakeDamage().getVictim().getLocation().getY()) / 1000);
-            writer_blank.setColor(vx,vy, victim);
+        for(Event event:events){
+            if(event.getCommon().getIsGame() > 1) continue;;
+            Color color;
+            color = Color.valueOf(colors[(int) event.getCommon().getIsGame()]);
+
+            int x = (Math.round(event.getLocation().getX()) / 1000);
+            int y = (Math.round(event.getLocation().getY()) / 1000);
+            writer_blank.setColor(x,y, color);
         }
 
         //Setting the image view

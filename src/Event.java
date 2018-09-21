@@ -82,8 +82,39 @@ public class Event {
                                         );
                 break;
             case LogCarePackageSpawn:
+                LinkedList<Item> items2 = new LinkedList<>();
+                if (element.has("items")){
+                    for (int i = 0; i < element.get("items").getAsJsonArray().size(); i++) {
+                        // { "itemId": string, "stackCount": int, "category": string, "subCategory": string, "attachedItems": [Item, ...] }
+                        items2.add(new Item(element.get("items").getAsJsonArray().get(i).getAsJsonObject()));
+                    }
+                }
+                // "itemPackage": {ItemPackage}
+                logCarePackageSpawn =   new LogCarePackageSpawn(
+                        new ItemPackage((element.has("itemPackageId") ? element.get("itemPackageId").getAsString() : ""),
+                                new Location((element.has("location")) ? element.get("location").getAsJsonObject() : new JsonObject()),
+                                items2)
+                );
                 break;
             case LogGameStatePeriodic:
+                // "gameState": {GameState}
+                logGameStatePeriodic =  new LogGameStatePeriodic(
+                        // { "elapsedTime": int, "numAliveTeams": int, "numJoinPlayers": int, "numStartPlayers": int, "numAlivePlayers": int, "safetyZonePosition": Location, "safetyZoneRadius": number, "poisonGasWarningPosition": Location,
+                        // "poisonGasWarningRadius": number, "redZonePosition": Location, "redZoneRadius": number }
+                        new GameState(
+                                (element.has("elapsedTime")) ? element.get("elapsedTime").getAsInt() : 0,
+                                (element.has("numAliveTeams")) ? element.get("numAliveTeams").getAsInt() : 0,
+                                (element.has("numJoinPlayers")) ? element.get("numJoinPlayers").getAsInt() : 0,
+                                (element.has("numStartPlayers")) ? element.get("numStartPlayers").getAsInt() : 0,
+                                (element.has("numAlivePlayers")) ? element.get("numAlivePlayers").getAsInt() : 0,
+                                new Location((element.has("location")) ? element.get("location").getAsJsonObject() : new JsonObject()),
+                                (element.has("safetyZoneRadius")) ? element.get("safetyZoneRadius").getAsFloat() : 0,
+                                new Location((element.has("poisonGasWarningPosition")) ? element.get("poisonGasWarningPosition").getAsJsonObject() : new JsonObject()),
+                                (element.has("poisonGasWarningRadius")) ? element.get("poisonGasWarningRadius").getAsFloat() : 0,
+                                new Location((element.has("redZonePosition")) ? element.get("redZonePosition").getAsJsonObject() : new JsonObject()),
+                                (element.has("redZoneRadius")) ? element.get("redZoneRadius").getAsFloat() : 0
+                        )
+                );
                 break;
             case LogItemAttach:
                 // "character": {Character}, "parentItem": {Item}, "childItem": {Item}
@@ -290,7 +321,7 @@ public class Event {
                 // "attackId": int, "attacker": {Character}, "vehicle": {Vehicle},
                 // "damageTypeCategory": string, "damageCauserName": string
                 logWheelDestroy =   new LogWheelDestroy(
-                        element.get("attackId").getAsInt(),
+                        (element.has("attackId") ? element.get("attackId").getAsInt() : 0),
                         new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
                         new Vehicle(element.get("vehicle").getAsJsonObject()),
                         element.get("damageTypeCategory").getAsString(),
@@ -311,6 +342,71 @@ public class Event {
 
     public Common getCommon() {
         return common;
+    }
+
+    public Location getLocation(){
+        switch(this.eventType){
+
+            case LogArmorDestroy:
+                return logArmorDestroy.getVictim().getLocation();
+            case LogCarePackageLand:
+                return logCarePackageLand.getItemPackage().getLocation();
+            case LogCarePackageSpawn:
+                return logCarePackageSpawn.getItemPackage().getLocation();
+            case LogGameStatePeriodic:
+                return new Location(0,0,0);
+            case LogItemAttach:
+                return logItemAttach.getCharacter().getLocation();
+            case LogItemDetach:
+                return logItemDetach.getCharacter().getLocation();
+            case LogItemDrop:
+                return logItemDrop.getCharacter().getLocation();
+            case LogItemEquip:
+                return logItemEquip.getCharacter().getLocation();
+            case LogItemPickup:
+                return logItemPickup.getCharacter().getLocation();
+            case LogItemUnequip:
+                return logItemUnequip.getCharacter().getLocation();
+            case LogItemUse:
+                return logItemUse.getCharacter().getLocation();
+            case LogMatchDefinition:
+                return new Location(0,0,0);
+            case LogMatchEnd:
+                return new Location(0,0,0);
+            case LogMatchStart:
+                return new Location(0,0,0);
+            case LogPlayerAttack:
+                return logPlayerAttack.getAttacker().getLocation();
+            case LogPlayerCreate:
+                return logPlayerCreate.getCharacter().getLocation();
+            case LogPlayerKill:
+                return logPlayerKill.getKiller().getLocation();
+            case LogPlayerLogin:
+                return new Location(0,0,0);
+            case LogPlayerLogout:
+                return new Location(0,0,0);
+            case LogPlayerMakeGroggy:
+                return logPlayerMakeGroggy.getAttacker().getLocation();
+            case LogPlayerPosition:
+                return logPlayerPosition.getCharacter().getLocation();
+            case LogPlayerRevive:
+                return logPlayerRevive.getVictim().getLocation();
+            case LogPlayerTakeDamage:
+                return logPlayerTakeDamage.getVictim().getLocation();
+            case LogSwimEnd:
+                return logSwimEnd.getCharacter().getLocation();
+            case LogSwimStart:
+                return logSwimStart.getCharacter().getLocation();
+            case LogVehicleDestroy:
+                return logVehicleDestroy.getAttacker().getLocation();
+            case LogVehicleLeave:
+                return logVehicleLeave.getCharacter().getLocation();
+            case LogVehicleRide:
+                return logVehicleRide.getCharacter().getLocation();
+            case LogWheelDestroy:
+                return logWheelDestroy.getAttacker().getLocation();
+        }
+        return new Location(0,0,0);
     }
 
     public LogArmorDestroy getLogArmorDestroy() {
