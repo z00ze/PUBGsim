@@ -18,6 +18,14 @@ public class Character {
             this.ranking = element.get("ranking").getAsInt();
             this.accountId = element.get("accountId").getAsString();
         }
+        else{
+            this.name = "";
+            this.teamId = 0;
+            this.health = 0;
+            this.location = new Location(new JsonObject());
+            this.ranking = 0;
+            this.accountId = "";
+        }
     }
 
     public String getName() {

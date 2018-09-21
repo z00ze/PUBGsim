@@ -8,8 +8,9 @@ import java.util.LinkedList;
 public class Event {
 
     EventType eventType;
-    Date datetime;
+    Long time; // epoch milli
     Common common;
+
     LogArmorDestroy logArmorDestroy;
     LogCarePackageLand logCarePackageLand;
     LogCarePackageSpawn logCarePackageSpawn;
@@ -44,11 +45,13 @@ public class Event {
 
         this.eventType = EventType.valueOf(element.get("_T").getAsString());
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_DATE_TIME;
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_INSTANT;
         TemporalAccessor accessor = timeFormatter.parse(element.get("_D").getAsString());
-        datetime = Date.from(Instant.from(accessor));
+        this.time = Instant.from(accessor).toEpochMilli();
         if(element.has("common") && element.get("common").getAsJsonObject().has("isGame")) {
             common = new Common(element.get("common").getAsJsonObject().get("isGame").getAsFloat());
+        }else{
+            common = new Common(0);
         }
         switch(this.eventType) {
             case LogArmorDestroy:
@@ -233,7 +236,7 @@ public class Event {
                 logPlayerTakeDamage =   new LogPlayerTakeDamage(
                                             element.get("attackId").getAsInt(),
                                             new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
-                                            new Character(element.get("victim").getAsJsonObject()),
+                                            new Character((element.has("victim") && element.get("victim").isJsonObject()) ? element.get("victim").getAsJsonObject() : new JsonObject()),
                                             element.get("damageTypeCategory").getAsString(),
                                             element.get("damageReason").getAsString(),
                                             element.get("damage").getAsFloat(),
@@ -302,8 +305,8 @@ public class Event {
         return eventType;
     }
 
-    public Date getDatetime() {
-        return datetime;
+    public Long getTime() {
+        return time;
     }
 
     public Common getCommon() {
@@ -437,7 +440,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "eventType=" + eventType +
-                ", datetime=" + datetime +
+                ", datetime=" + time +
                 ", common=" + common +
                 ", logArmorDestroy=" + ((logArmorDestroy == null) ? "" : logArmorDestroy.toString()) +
                 ", logCarePackageLand=" + ((logCarePackageLand == null) ? "" : logCarePackageLand.toString()) +
