@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import sun.awt.image.ImageWatched;
 
@@ -46,15 +47,25 @@ public class Main extends Application {
                 writer.setColor(x, y, color);
             }
         }
+        LinkedList<Circle> safetyzones = new LinkedList<>();
         LinkedList<Event> events = main.getEvents();
         for(Event event:events){
-            if(event.getCommon().getIsGame() > 1) continue;;
+            //if(event.getCommon().getIsGame() > 1) continue;;
             Color color;
             color = Color.valueOf(colors[(int) event.getCommon().getIsGame()]);
 
             int x = (Math.round(event.getLocation().getX()) / 1000);
             int y = (Math.round(event.getLocation().getY()) / 1000);
             writer_blank.setColor(x,y, color);
+
+            if(event.getEventType() == Event.EventType.LogGameStatePeriodic && event.getCommon().getIsGame() % 1 == 0){
+                Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius()/1000);
+                circle.setStroke(Color.WHITE);
+                circle.setFill(Color.TRANSPARENT);
+                circle.setStrokeWidth(0.2);
+                safetyzones.add(circle);
+                System.out.println(circle.toString());
+            }
         }
 
         //Setting the image view
@@ -79,12 +90,14 @@ public class Main extends Application {
 
         //Creating a Group object
         Group root = new Group(imageView,imageView_blank);
-
+        for(Circle circle:safetyzones) {
+            root.getChildren().add(circle);
+        }
         //Creating a scene object
-        Scene scene = new Scene(root, 800, 800);
+        Scene scene = new Scene(root, 819, 819);
 
         //Setting title to the Stage
-        stage.setTitle("PUBGsim - Marko Loponen");
+        stage.setTitle("PUBGsim by Marko Loponen");
 
         //Adding scene to the stage
         stage.setScene(scene);

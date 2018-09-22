@@ -102,17 +102,17 @@ public class Event {
                         // { "elapsedTime": int, "numAliveTeams": int, "numJoinPlayers": int, "numStartPlayers": int, "numAlivePlayers": int, "safetyZonePosition": Location, "safetyZoneRadius": number, "poisonGasWarningPosition": Location,
                         // "poisonGasWarningRadius": number, "redZonePosition": Location, "redZoneRadius": number }
                         new GameState(
-                                (element.has("elapsedTime")) ? element.get("elapsedTime").getAsInt() : 0,
-                                (element.has("numAliveTeams")) ? element.get("numAliveTeams").getAsInt() : 0,
-                                (element.has("numJoinPlayers")) ? element.get("numJoinPlayers").getAsInt() : 0,
-                                (element.has("numStartPlayers")) ? element.get("numStartPlayers").getAsInt() : 0,
-                                (element.has("numAlivePlayers")) ? element.get("numAlivePlayers").getAsInt() : 0,
-                                new Location((element.has("location")) ? element.get("location").getAsJsonObject() : new JsonObject()),
-                                (element.has("safetyZoneRadius")) ? element.get("safetyZoneRadius").getAsFloat() : 0,
-                                new Location((element.has("poisonGasWarningPosition")) ? element.get("poisonGasWarningPosition").getAsJsonObject() : new JsonObject()),
-                                (element.has("poisonGasWarningRadius")) ? element.get("poisonGasWarningRadius").getAsFloat() : 0,
-                                new Location((element.has("redZonePosition")) ? element.get("redZonePosition").getAsJsonObject() : new JsonObject()),
-                                (element.has("redZoneRadius")) ? element.get("redZoneRadius").getAsFloat() : 0
+                                (element.get("gameState").getAsJsonObject().has("elapsedTime")) ? element.get("gameState").getAsJsonObject().get("elapsedTime").getAsInt() : 0,
+                                (element.get("gameState").getAsJsonObject().has("numAliveTeams")) ? element.get("gameState").getAsJsonObject().get("numAliveTeams").getAsInt() : 0,
+                                (element.get("gameState").getAsJsonObject().has("numJoinPlayers")) ? element.get("gameState").getAsJsonObject().get("numJoinPlayers").getAsInt() : 0,
+                                (element.get("gameState").getAsJsonObject().has("numStartPlayers")) ? element.get("gameState").getAsJsonObject().get("numStartPlayers").getAsInt() : 0,
+                                (element.get("gameState").getAsJsonObject().has("numAlivePlayers")) ? element.get("gameState").getAsJsonObject().get("numAlivePlayers").getAsInt() : 0,
+                                new Location((element.get("gameState").getAsJsonObject().has("safetyZonePosition")) ? element.get("gameState").getAsJsonObject().get("safetyZonePosition").getAsJsonObject() : new JsonObject()),
+                                (element.get("gameState").getAsJsonObject().has("safetyZoneRadius")) ? element.get("gameState").getAsJsonObject().get("safetyZoneRadius").getAsFloat() : 0,
+                                new Location((element.get("gameState").getAsJsonObject().has("poisonGasWarningPosition")) ? element.get("gameState").getAsJsonObject().get("poisonGasWarningPosition").getAsJsonObject() : new JsonObject()),
+                                (element.get("gameState").getAsJsonObject().has("poisonGasWarningRadius")) ? element.get("gameState").getAsJsonObject().get("poisonGasWarningRadius").getAsFloat() : 0,
+                                new Location((element.get("gameState").getAsJsonObject().has("redZonePosition")) ? element.get("gameState").getAsJsonObject().get("redZonePosition").getAsJsonObject() : new JsonObject()),
+                                (element.get("gameState").getAsJsonObject().has("redZoneRadius")) ? element.get("gameState").getAsJsonObject().get("redZoneRadius").getAsFloat() : 0
                         )
                 );
                 break;
