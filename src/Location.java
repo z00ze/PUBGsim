@@ -8,9 +8,9 @@ public class Location {
 
     public Location(JsonObject element) {
         if(!element.toString().equals("{}")) {
-            this.x = (element.get("x").getAsFloat() > 800000) ? 800000 : element.get("x").getAsFloat();
-            this.y = (element.get("y").getAsFloat() > 800000) ? 800000 : element.get("y").getAsFloat();
-            this.z =(element.get("z").getAsFloat() > 800000) ? 800000 : element.get("z").getAsFloat();
+            this.x = (element.get("x").getAsFloat() > 818000) ? 818000 : element.get("x").getAsFloat();
+            this.y = (element.get("y").getAsFloat() > 818000) ? 818000 : element.get("y").getAsFloat();
+            this.z =(element.get("z").getAsFloat() > 818000) ? 818000 : element.get("z").getAsFloat();
         }
         else{
             this.x = 0;
