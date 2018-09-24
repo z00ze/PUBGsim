@@ -1,30 +1,32 @@
-import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
-import java.util.Comparator;
 import java.util.LinkedList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import sun.awt.image.ImageWatched;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, ParseException {
         String[] colors = {"#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000"};
+        int toolbarHeight = 25;
+
         Match main = new Match("match1.json");
 
         //Creating an image
@@ -32,13 +34,10 @@ public class Main extends Application {
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
 
-
-
         //Map
         WritableImage wImage = new WritableImage(width, height);
         PixelReader pixelReader = image.getPixelReader();
         PixelWriter writer = wImage.getPixelWriter();
-
 
         //Phases
         LinkedList<Phase> phases = new LinkedList<>();
@@ -48,15 +47,7 @@ public class Main extends Application {
             phases.add(new Phase(writableImage,pixelWriter,i));
         }
 
-        //Phases
-        LinkedList<PixelWriter> pixelWriters = new LinkedList<>();
-        LinkedList<WritableImage> writableImages = new LinkedList<>();
-        for(int i = 0; i < 10; i++){
-            writableImages.add(new WritableImage(width, height));
-            pixelWriters.add(writableImages.get(writableImages.size()-1).getPixelWriter());
-        }
-
-        //Map
+        //Map coloring
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 //Retrieving the color of the pixel of the loaded image
@@ -73,11 +64,15 @@ public class Main extends Application {
             Color color = Color.valueOf(colors[(int) event.getCommon().getIsGame()]);
             int x = (Math.round(event.getLocation().getX()) / 1000);
             int y = (Math.round(event.getLocation().getY()) / 1000);
-            pixelWriters.get((int) event.getCommon().getIsGame()).setColor(x, y, color);
-
+            for(Phase p:phases){
+                if(p.getPhase() == event.getCommon().getIsGame()){
+                    p.getPixelWriter().setColor(x, y, color);
+                }
+            }
+            // Draw just safetyzones on stable phases (0.5, 1.5, ... n.5 = moving safetyzone)
             if(event.getEventType() == Event.EventType.LogGameStatePeriodic && event.getCommon().getIsGame() % 1 == 0){
                 Boolean add = true;
-                Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius()/1000);
+                Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()/1000+toolbarHeight,event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius()/1000);
                 for(Circle c:safetyzones){
                     if(c.getCenterX() == circle.getCenterX() && c.getCenterY() == circle.getCenterY() && c.getRadius() == circle.getRadius()){
                         add = false;
@@ -99,57 +94,56 @@ public class Main extends Application {
 
         //Setting the position of the image
         imageView.setX(0);
-        imageView.setY(0);
+        imageView.setY(toolbarHeight);
 
         //setting the fit height and width of the image view
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
 
-        //Setting the preserve ratio of the image view
+        // Setting the preserve ratio of the image view (???)
         imageView.setPreserveRatio(true);
 
         // Group object
         Group root = new Group(imageView);
 
-        for(WritableImage writableImage:writableImages){
-            ImageView imgview = new ImageView(writableImage);
+        // Phases
+        for(Phase p:phases){
+            ImageView imgview = new ImageView(p.getWritableImage());
             imgview.setX(0);
-            imgview.setY(0);
+            imgview.setY(toolbarHeight);
             imgview.setFitHeight(height);
             imgview.setFitWidth(width);
             imgview.setPreserveRatio(true);
+            imgview.setId(p.getPhase()+"");
             root.getChildren().add(imgview);
         }
-
+        // Circles
         for(Circle circle:safetyzones) {
             root.getChildren().add(circle);
         }
 
+        // MAIN SCENE // <---- NOTICE ME SENPAI!
         Scene scene = new Scene(root, 919, 819);
 
+        // Phase buttons
         for(int i = 0; i <= 10; i++){
             Button button = new Button("Phase "+i);
             button.setPrefWidth(100);
             button.setPrefHeight(35);
             button.setLayoutX(819);
-            button.setLayoutY(35*i);
-            button.setStyle("-fx-border-color: #777; -fx-border-width: 1px; -fx-background-color: #FFF; -fx-background-color: "+colors[i]+";");
+            button.setLayoutY(35*i+toolbarHeight);
+            button.setStyle("-fx-border-color: #777; -fx-border-width: 2px; -fx-background-color: "+colors[i]+";");
+            button.setId(i+"");
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    /*Node node = root.getChildren().get((Integer.parseInt( ((Button) e.getSource()).getText().split(" ")[1]))+1).;
-                    //Node circle = root.lookup("#" + ((Button) e.getSource()).getText().split(" ")[1] + ".0");
-                    Node circle = root.getChildren().get((Integer.parseInt( ((Button) e.getSource()).getText().split(" ")[1]))+10);*/
-                    for(Node n:root.getChildren()){
-                        if( n.getId().equals(((Button) e.getSource()).getText().split(" ")[1]+".0")
-                            &&
-
-                        ){
-                            if (node.isVisible() && circle.isVisible()) {
+                    for(Node node:root.getChildren()){
+                        if(node.getId() != null && node.getId().equals(((Button) e.getSource()).getText().split(" ")[1]+".0")){
+                            if (node.isVisible()) {
                                 node.setVisible(false);
-                                circle.setVisible(false);
+                                ((Button) e.getSource()).setStyle("-fx-border-color: #777; -fx-border-width: 2px; -fx-background-color: #FFFFFF;");
                             } else {
+                                ((Button) e.getSource()).setStyle("-fx-border-color: #777; -fx-border-width: 2px; -fx-background-color: "+colors[Integer.parseInt(((Button) e.getSource()).getId())]+";");
                                 node.setVisible(true);
-                                circle.setVisible(true);
                             }
                         }
                     }
@@ -158,10 +152,58 @@ public class Main extends Application {
             });
             root.getChildren().add(button);
         }
+        //Menus
+        MenuBar menuBar = new MenuBar();
+            Menu filemenu = new Menu("File");
+                Menu menuItemNew = new Menu("New");
+                    MenuItem menuitemNewMatch = new MenuItem("New Match");
+                    menuitemNewMatch.setOnAction(e -> {
+                        Label secondLabel = new Label("I'm a Label on new Window");
+
+                        StackPane secondaryLayout = new StackPane();
+                        secondaryLayout.getChildren().add(secondLabel);
+
+                        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+                        // New window (Stage)
+                        Stage newWindow = new Stage();
+                        newWindow.setTitle("Second Stage");
+                        newWindow.setScene(secondScene);
+
+                        // Set position of second window, related to primary window.
+                        newWindow.setX(stage.getX() + 200);
+                        newWindow.setY(stage.getY() + 100);
+
+                        newWindow.show();
+                    });
+                    menuitemNewMatch.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+                    menuItemNew.getItems().add(menuitemNewMatch);
+                MenuItem menuItemOpen = new MenuItem("Open");
+                menuItemOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+                MenuItem menuItemQuit = new MenuItem("Quit");
+                menuItemOpen.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
+                filemenu.getItems().add(menuItemNew);
+                filemenu.getItems().add(menuItemOpen);
+                filemenu.getItems().add(menuItemQuit);
+            Menu editmenu = new Menu("Edit");
+                MenuItem menuItemCurrent = new MenuItem("Current match info");
+                menuItemCurrent.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.CONTROL_DOWN));
+                editmenu.getItems().add(menuItemCurrent);
+            menuBar.getMenus().addAll(filemenu,editmenu);
 
 
+        Menu menu2 = new Menu("Edit");
+        menuBar.getMenus().add(menu2);
+        VBox vBox = new VBox(menuBar);
+        root.getChildren().add(menuBar);
 
-
+        // Textfields
+        Label label1 = new Label("Name:");
+        TextField textField = new TextField ();
+        HBox hb = new HBox();
+        hb.getChildren().addAll(label1, textField);
+        hb.setSpacing(10);
+        hb.setLayoutX(500);
+        root.getChildren().add(hb);
 
         //Setting title to the Stage
         stage.setTitle("PUBGsim by Marko Loponen");
