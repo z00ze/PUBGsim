@@ -90,8 +90,7 @@ public class Main extends Application {
             }
         }
 
-<<<<<<< HEAD
-=======
+
         // Add safetyzone to kill
         for(Event event:events){
             for(Circle safetyzone:safetyzones){
@@ -102,10 +101,6 @@ public class Main extends Application {
         }
 
 
-<<<<<<< HEAD
->>>>>>> parent of c634c42... centerzone calculator
-=======
->>>>>>> parent of c634c42... centerzone calculator
         //Setting the image view
         ImageView imageView = new ImageView(wImage);
 
@@ -230,8 +225,7 @@ public class Main extends Application {
 
         //Displaying the contents of the stage
         stage.show();
-<<<<<<< HEAD
-=======
+
 
         // Death calculating
         for(Event event:events){
@@ -244,10 +238,6 @@ public class Main extends Application {
                 ));
             }
         }
-<<<<<<< HEAD
->>>>>>> parent of c634c42... centerzone calculator
-=======
->>>>>>> parent of c634c42... centerzone calculator
     }
     public static void main(String args[]) {
         launch(args);
