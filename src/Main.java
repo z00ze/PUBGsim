@@ -61,6 +61,7 @@ public class Main extends Application {
         LinkedList<Circle> safetyzones = new LinkedList<>();
         LinkedList<Event> events = main.getEvents();
         for(Event event:events){
+            if(event.getCommon().getIsGame() == 0) continue;
             Color color = Color.valueOf(colors[(int) event.getCommon().getIsGame()]);
             int x = (Math.round(event.getLocation().getX()) / 1000);
             int y = (Math.round(event.getLocation().getY()) / 1000);
@@ -70,9 +71,9 @@ public class Main extends Application {
                 }
             }
             // Draw just safetyzones on stable phases (0.5, 1.5, ... n.5 = moving safetyzone)
-            if(event.getEventType() == Event.EventType.LogGameStatePeriodic && event.getCommon().getIsGame() % 1 == 0){
+            if(event.getEventType() == Event.EventType.LogGameStatePeriodic && event.getCommon().getIsGame() % 1 == 0){ // && event.getCommon().getIsGame() >= 0.5
                 Boolean add = true;
-                Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX()/1000,event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()/1000+toolbarHeight,event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius()/1000);
+                Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()+toolbarHeight,event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
                 for(Circle c:safetyzones){
                     if(c.getCenterX() == circle.getCenterX() && c.getCenterY() == circle.getCenterY() && c.getRadius() == circle.getRadius()){
                         add = false;
@@ -131,7 +132,13 @@ public class Main extends Application {
         }
         // Circles
         for(Circle circle:safetyzones) {
-            root.getChildren().add(circle);
+            if(Double.parseDouble(circle.getId()) % 1 != 0) continue;
+            Circle c = new Circle(circle.getCenterX()/1000,circle.getCenterY()/1000+toolbarHeight,circle.getRadius()/1000);
+            c.setStroke(Color.WHITE);
+            c.setFill(Color.TRANSPARENT);
+            c.setStrokeWidth(1);
+            c.setId(circle.getId());
+            root.getChildren().add(c);
         }
 
         // MAIN SCENE // <---- NOTICE ME SENPAI!
@@ -203,19 +210,9 @@ public class Main extends Application {
             menuBar.getMenus().addAll(filemenu,editmenu);
 
 
-        Menu menu2 = new Menu("Edit");
-        menuBar.getMenus().add(menu2);
         VBox vBox = new VBox(menuBar);
         root.getChildren().add(menuBar);
 
-        // Textfields
-        Label label1 = new Label("Name:");
-        TextField textField = new TextField ();
-        HBox hb = new HBox();
-        hb.getChildren().addAll(label1, textField);
-        hb.setSpacing(10);
-        hb.setLayoutX(500);
-        root.getChildren().add(hb);
 
         //Setting title to the Stage
         stage.setTitle("PUBGsim by Marko Loponen");
@@ -226,26 +223,35 @@ public class Main extends Application {
         //Displaying the contents of the stage
         stage.show();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+        LinkedList<Double> deathDistances = new LinkedList<>();
 
-=======
->>>>>>> parent of c634c42... centerzone calculator
-=======
->>>>>>> parent of c634c42... centerzone calculator
         // Death calculating
         for(Event event:events){
-            if(event.getEventType() == Event.EventType.LogPlayerKill){
-                System.out.println(distance(
+            if(event.getEventType() == Event.EventType.LogPlayerKill){ //  && event.getCommon().getIsGame() % 1 == 0
+                if(event.getLogPlayerKill().getSafezone() == null || event.getLogPlayerKill().getSafezone() == null) continue;
+                deathDistances.add(distance(
                         event.getLogPlayerKill().getVictim().getLocation().getX(),
                         event.getLogPlayerKill().getVictim().getLocation().getY(),
                         event.getLogPlayerKill().getSafezone().getCenterX(),
                         event.getLogPlayerKill().getSafezone().getCenterY()
-                ));
+                ) / event.getLogPlayerKill().getSafezone().getRadius());
             }
         }
+        int centerSafetyzoneDeathAmount = 0;
+        int outerSafetyzoneDeathAmount = 0;
+        for(Double d:deathDistances){
+            if(d > 0.5) outerSafetyzoneDeathAmount++;
+            else centerSafetyzoneDeathAmount++;
+        }
+        System.out.println("centerSafetyzoneDeathAmount : " + centerSafetyzoneDeathAmount);
+        System.out.println("outerSafetyzoneDeathAmount : " + outerSafetyzoneDeathAmount);
+        
     }
     public static void main(String args[]) {
         launch(args);
+    }
+
+    public double distance(float x1, float y1, double x2, double y2){
+        return Math.sqrt(Math.pow((x1-x2),2) + Math.pow((y1-y2),2));
     }
 }
