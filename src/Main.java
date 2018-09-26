@@ -227,7 +227,10 @@ public class Main extends Application {
         stage.show();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of c634c42... centerzone calculator
 =======
 >>>>>>> parent of c634c42... centerzone calculator
         // Death calculating
