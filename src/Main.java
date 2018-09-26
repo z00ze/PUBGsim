@@ -226,7 +226,10 @@ public class Main extends Application {
         //Displaying the contents of the stage
         stage.show();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of c634c42... centerzone calculator
         // Death calculating
         for(Event event:events){
             if(event.getEventType() == Event.EventType.LogPlayerKill){
