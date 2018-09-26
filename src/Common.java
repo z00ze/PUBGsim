@@ -1,8 +1,12 @@
+import java.text.DecimalFormat;
+
 public class Common {
     // { "isGame": number }
     float isGame;
 
     public Common(float isGame) {
+        DecimalFormat value = new DecimalFormat("##.#");
+        value.format(isGame);
         this.isGame = isGame;
     }
 

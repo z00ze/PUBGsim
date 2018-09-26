@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,6 +27,7 @@ public class Main extends Application {
         int toolbarHeight = 25;
 
         Match main = new Match("match1.json");
+        Instance instanceOne = new Instance("match1.json");
 
         //Creating an image
         Image image = new Image(new FileInputStream(System.getProperty("user.dir")+"/src/Erangel_Main_High_Res_SMALL.jpg"));
@@ -85,7 +85,6 @@ public class Main extends Application {
                     circle.setFill(Color.TRANSPARENT);
                     circle.setStrokeWidth(1);
                     circle.setId(event.getCommon().getIsGame()+"");
-                    System.out.println(circle.toString());
                     safetyzones.add(circle);
                 }
             }
@@ -245,7 +244,7 @@ public class Main extends Application {
         }
         System.out.println("centerSafetyzoneDeathAmount : " + centerSafetyzoneDeathAmount);
         System.out.println("outerSafetyzoneDeathAmount : " + outerSafetyzoneDeathAmount);
-        
+
     }
     public static void main(String args[]) {
         launch(args);
