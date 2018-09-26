@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="32c2bb16-33a3-46a1-bc30-647a08d2450a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogPlayerKill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogPlayerKill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,33 +25,33 @@
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="5" />
           <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="5" />
+          <entry key="project.open.time.8" value="4" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="java" value="168" />
+          <entry key="java" value="166" />
           <entry key="json" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="168" />
+          <entry key="JAVA" value="166" />
           <entry key="JSON" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="25574" />
+          <entry key="java" value="24867" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="25574" />
+          <entry key="JAVA" value="24867" />
         </counts>
       </usages-collector>
     </session>
@@ -60,12 +61,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="81" column="30" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="30" />
+            <state relative-caret-position="472">
+              <caret line="229" selection-start-line="229" selection-end-line="229" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11319#11320#0" expanded="true" />
-                <element signature="e#11347#11348#0" expanded="true" />
+                <element signature="e#10474#10475#0" expanded="true" />
+                <element signature="e#10502#10503#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,7 +75,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Phase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
+            <state relative-caret-position="153">
               <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,11 +87,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LogPlayerKill.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="66" column="70" selection-start-line="66" selection-start-column="70" selection-end-line="66" selection-end-column="70" />
+            <state relative-caret-position="242">
+              <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
               <folding>
                 <element signature="e#1410#1411#0" expanded="true" />
                 <element signature="e#1441#1442#0" expanded="true" />
+                <element signature="e#1423#1424#0" expanded="true" />
+                <element signature="e#1463#1464#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Event.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="53" column="12" lean-forward="true" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+            <state relative-caret-position="172">
+              <caret line="209" column="30" selection-start-line="209" selection-start-column="17" selection-end-line="209" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,24 +112,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Common.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-              <folding>
-                <element signature="e#137#138#0" expanded="true" />
-                <element signature="e#169#170#0" expanded="true" />
-                <element signature="e#198#199#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/json/match1.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1125955">
-              <caret column="443967" selection-start-column="443967" selection-end-column="443967" />
+            <state relative-caret-position="351">
+              <caret column="10435080" lean-forward="true" selection-start-column="10435080" selection-end-column="10435547" />
             </state>
           </provider>
         </entry>
@@ -184,6 +173,18 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>LogGameStatePeriodic</find>
+      <find>button</find>
+      <find>wImage</find>
+      <find>.add</find>
+      <find>root.getchildren().add</find>
+      <find>&lt;</find>
+      <find>writableImages</find>
+      <find>0</find>
+      <find>0,</find>
+      <find>width</find>
+      <find>phase</find>
+      <find>stage</find>
       <find>New stage</find>
       <find>editmenu</find>
       <find>Edit</find>
@@ -194,26 +195,14 @@
       <find>Phase</find>
       <find>logPlayerKill</find>
       <find>event.getlogplayerkill</find>
+      <find>LogPlayerKill</find>
+      <find>safetyzones</find>
       <find>getlog</find>
       <find>Circle</find>
       <find>safetyzones.add</find>
+      <find>%</find>
       <find>getchil</find>
       <find>+tool</find>
-      <find>getSafezone</find>
-      <find>getLogPlayerKill</find>
-      <find>%</find>
-      <find>System</find>
-      <find>System.out.</find>
-      <find>safetyzones</find>
-      <find>LogPlayerKill</find>
-      <find>&gt;</find>
-      <find>isGame&quot;:0</find>
-      <find>isGame&quot;:0.</find>
-      <find>isGame&quot;:1</find>
-      <find>&quot;.0</find>
-      <find>setId</find>
-      <find>Sys</find>
-      <find>alive</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -255,6 +244,7 @@
         <option value="$PROJECT_DIR$/src/LogArmorDestroy.java" />
         <option value="$PROJECT_DIR$/src/GameState.java" />
         <option value="$PROJECT_DIR$/src/ItemPackage.java" />
+        <option value="$PROJECT_DIR$/src/Common.java" />
         <option value="$PROJECT_DIR$/src/LogPlayerAttack.java" />
         <option value="$PROJECT_DIR$/src/Vehicle.java" />
         <option value="$PROJECT_DIR$/src/LogItemAttach.java" />
@@ -266,13 +256,12 @@
         <option value="$PROJECT_DIR$/src/Match.java" />
         <option value="$PROJECT_DIR$/src/Character.java" />
         <option value="$PROJECT_DIR$/src/LogCarePackageSpawn.java" />
+        <option value="$PROJECT_DIR$/src/Event.java" />
         <option value="$PROJECT_DIR$/src/Location.java" />
         <option value="$PROJECT_DIR$/src/Phase.java" />
         <option value="$PROJECT_DIR$/src/Calculator.java" />
         <option value="$PROJECT_DIR$/src/Death.java" />
         <option value="$PROJECT_DIR$/src/LogPlayerKill.java" />
-        <option value="$PROJECT_DIR$/src/Common.java" />
-        <option value="$PROJECT_DIR$/src/Event.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
@@ -291,8 +280,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -315,10 +302,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537907603534" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537900880816" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/gson-2.2.2.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -375,9 +364,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17537314" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17377399" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -386,7 +374,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.35357916" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.35357916" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -533,6 +521,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Common.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" lean-forward="true" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -690,15 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Calculator.java" />
-    <entry file="file://$PROJECT_DIR$/src/Death.java" />
-    <entry file="file://$PROJECT_DIR$/src/Location.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="66" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -730,49 +716,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Common.java">
+    <entry file="file://$PROJECT_DIR$/json/match1.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        <state relative-caret-position="351">
+          <caret column="10435080" lean-forward="true" selection-start-column="10435080" selection-end-column="10435547" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Calculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Death.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
-            <element signature="e#137#138#0" expanded="true" />
-            <element signature="e#169#170#0" expanded="true" />
-            <element signature="e#198#199#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#466#467#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#529#530#0" expanded="true" />
+            <element signature="e#557#558#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LogPlayerKill.java">
+    <entry file="file://$PROJECT_DIR$/src/Location.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="66" column="70" selection-start-line="66" selection-start-column="70" selection-end-line="66" selection-end-column="70" />
-          <folding>
-            <element signature="e#1410#1411#0" expanded="true" />
-            <element signature="e#1441#1442#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="12" column="66" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="53" column="12" lean-forward="true" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+        <state relative-caret-position="172">
+          <caret line="209" column="30" selection-start-line="209" selection-start-column="17" selection-end-line="209" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/json/match1.json">
+    <entry file="file://$PROJECT_DIR$/src/LogPlayerKill.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1125955">
-          <caret column="443967" selection-start-column="443967" selection-end-column="443967" />
+        <state relative-caret-position="242">
+          <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
+          <folding>
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1441#1442#0" expanded="true" />
+            <element signature="e#1423#1424#0" expanded="true" />
+            <element signature="e#1463#1464#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Phase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="153">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -782,12 +789,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="81" column="30" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="30" />
+        <state relative-caret-position="472">
+          <caret line="229" selection-start-line="229" selection-end-line="229" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11319#11320#0" expanded="true" />
-            <element signature="e#11347#11348#0" expanded="true" />
+            <element signature="e#10474#10475#0" expanded="true" />
+            <element signature="e#10502#10503#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -84,11 +84,25 @@ public class Main extends Application {
                     circle.setFill(Color.TRANSPARENT);
                     circle.setStrokeWidth(1);
                     circle.setId(event.getCommon().getIsGame()+"");
+                    System.out.println(circle.toString());
                     safetyzones.add(circle);
                 }
             }
         }
 
+<<<<<<< HEAD
+=======
+        // Add safetyzone to kill
+        for(Event event:events){
+            for(Circle safetyzone:safetyzones){
+                if(event.getEventType() == Event.EventType.LogPlayerKill && Double.parseDouble(safetyzone.getId()) == event.getCommon().getIsGame()){
+                    event.getLogPlayerKill().setSafezone(safetyzone);
+                }
+            }
+        }
+
+
+>>>>>>> parent of c634c42... centerzone calculator
         //Setting the image view
         ImageView imageView = new ImageView(wImage);
 
@@ -213,6 +227,21 @@ public class Main extends Application {
 
         //Displaying the contents of the stage
         stage.show();
+<<<<<<< HEAD
+=======
+
+        // Death calculating
+        for(Event event:events){
+            if(event.getEventType() == Event.EventType.LogPlayerKill){
+                System.out.println(distance(
+                        event.getLogPlayerKill().getVictim().getLocation().getX(),
+                        event.getLogPlayerKill().getVictim().getLocation().getY(),
+                        event.getLogPlayerKill().getSafezone().getCenterX(),
+                        event.getLogPlayerKill().getSafezone().getCenterY()
+                ));
+            }
+        }
+>>>>>>> parent of c634c42... centerzone calculator
     }
     public static void main(String args[]) {
         launch(args);
