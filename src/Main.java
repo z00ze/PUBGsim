@@ -102,6 +102,9 @@ public class Main extends Application {
         }
 
 
+<<<<<<< HEAD
+>>>>>>> parent of c634c42... centerzone calculator
+=======
 >>>>>>> parent of c634c42... centerzone calculator
         //Setting the image view
         ImageView imageView = new ImageView(wImage);
@@ -241,6 +244,9 @@ public class Main extends Application {
                 ));
             }
         }
+<<<<<<< HEAD
+>>>>>>> parent of c634c42... centerzone calculator
+=======
 >>>>>>> parent of c634c42... centerzone calculator
     }
     public static void main(String args[]) {
