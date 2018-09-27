@@ -10,6 +10,7 @@ public class Event {
     EventType eventType;
     Long time; // epoch milli
     Common common;
+    String accountId = "";
 
     LogArmorDestroy logArmorDestroy;
     LogCarePackageLand logCarePackageLand;
@@ -41,6 +42,10 @@ public class Event {
     LogVehicleRide logVehicleRide;
     LogWheelDestroy logWheelDestroy;
 
+    public Event(){
+        this.time = 9999999999999l;
+    }
+
     public Event(JsonObject element) {
 
         this.eventType = EventType.valueOf(element.get("_T").getAsString());
@@ -65,6 +70,7 @@ public class Event {
                         new Item(element.get("item").getAsJsonObject()),
                         element.get("distance").getAsFloat()
                 );
+                accountId = element.get("victim").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogCarePackageLand:
                 LinkedList<Item> items = new LinkedList<>();
@@ -123,6 +129,7 @@ public class Event {
                                                 new Item(element.get("parentItem").getAsJsonObject()),
                                                 new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemDetach:
                 // "character": {Character}, "parentItem": {Item}, "childItem": {Item}
@@ -131,6 +138,7 @@ public class Event {
                                     new Item(element.get("parentItem").getAsJsonObject()),
                                     new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemDrop:
                 // "character": {Character}, "item": {Item}
@@ -138,6 +146,7 @@ public class Event {
                                     new Character(element.get("character").getAsJsonObject()),
                                     new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemEquip:
                 // "character": {Character}, "item": {Item}
@@ -145,6 +154,7 @@ public class Event {
                                     new Character(element.get("character").getAsJsonObject()),
                                     new Item((element.has("item")) ? element.get("item").getAsJsonObject() : new JsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemPickup:
                 // "character": {Character}, "childItem": {Item}
@@ -152,6 +162,7 @@ public class Event {
                                     new Character(element.get("character").getAsJsonObject()),
                                     new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemUnequip:
                 // "character": {Character}, "item": {Item}
@@ -159,6 +170,7 @@ public class Event {
                         new Character(element.get("character").getAsJsonObject()),
                         new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogItemUse:
                 // "character": {Character}, "item": {Item}
@@ -166,6 +178,7 @@ public class Event {
                         new Character(element.get("character").getAsJsonObject()),
                         new Item((element.has("childItem")) ? element.get("childItem").getAsJsonObject() : new JsonObject())
                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogMatchDefinition:
                 // "MatchId": string, "PingQuality": string
@@ -200,12 +213,14 @@ public class Event {
                                         new Item(element.get("weapon").getAsJsonObject()),
                                         new Vehicle((element.has("vehicle") && element.get("vehicle").isJsonObject()) ? element.get("vehicle").getAsJsonObject() : new JsonObject())
                                     );
+                accountId = element.get("attacker").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerCreate:
                 // "character": {Character}
                 logPlayerCreate =   new LogPlayerCreate(
                                         new Character(element.get("character").getAsJsonObject())
                                     );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerKill:
                 // "attackId": int, "killer": {Character}, "victim": {Character}, "damageTypeCategory": string,
@@ -219,6 +234,7 @@ public class Event {
                                     element.get("damageReason").getAsString(),
                                     element.get("distance").getAsFloat()
                                 );
+                accountId = element.get("victim").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerLogin:
                 // "accountId": string
@@ -245,6 +261,7 @@ public class Event {
                                             element.get("isAttackerInVehicle").getAsBoolean(),
                                             element.get("dBNOId").getAsInt()
                                         );
+                accountId = element.get("victim").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerPosition:
                 // "character": {Character}, "elapsedTime": number, "numAlivePlayers": int
@@ -253,6 +270,7 @@ public class Event {
                                         element.get("elapsedTime").getAsFloat(),
                                         element.get("numAlivePlayers").getAsInt()
                                     );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerRevive:
                 // "reviver": {Character}, "victim": {Character}, // Yes, it's actually called victim
@@ -260,6 +278,7 @@ public class Event {
                         new Character(element.get("reviver").getAsJsonObject()),
                         new Character(element.get("victim").getAsJsonObject())
                 );
+                accountId = element.get("victim").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogPlayerTakeDamage:
                 // "attackId": int, "attacker": {Character}, "victim": {Character}, "damageTypeCategory": string,
@@ -273,6 +292,7 @@ public class Event {
                                             element.get("damage").getAsFloat(),
                                             element.get("damageCauserName").getAsString()
                                         );
+                accountId = element.get("victim").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogSwimEnd:
                 // "character": {Character}, "swimDistance": float
@@ -280,13 +300,14 @@ public class Event {
                                     new Character(element.get("character").getAsJsonObject()),
                                     element.get("swimDistance").getAsFloat()
                                 );
-
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogSwimStart:
                 // "character": {Character}
                 logSwimStart =  new LogSwimStart(
                                     new Character(element.get("character").getAsJsonObject())
                                 );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogVehicleDestroy:
                 // "atackId": int, "attacker": {Character}, "vehicle": {Vehicle}, "damageTypeCategory": string,
@@ -299,6 +320,7 @@ public class Event {
                                         element.get("damageCauserName").getAsString(),
                                         element.get("distance").getAsFloat()
                                     );
+                accountId = element.get("attacker").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogVehicleLeave:
                 // "character": {Character}, "vehicle": {Vehicle}, "rideDistance": number, "seatIndex": integer
@@ -308,6 +330,7 @@ public class Event {
                                         element.get("rideDistance").getAsFloat(),
                                         element.get("seatIndex").getAsInt()
                                     );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogVehicleRide:
                 // "character": {Character}, "vehicle": {Vehicle}, "seatIndex": int
@@ -316,17 +339,19 @@ public class Event {
                                         new Vehicle(element.get("vehicle").getAsJsonObject()),
                                         (element.has("rideDistance")) ? element.get("rideDistance").getAsInt() : 0
                                     );
+                accountId = element.get("character").getAsJsonObject().get("accountId").getAsString();
                 break;
             case LogWheelDestroy:
                 // "attackId": int, "attacker": {Character}, "vehicle": {Vehicle},
                 // "damageTypeCategory": string, "damageCauserName": string
                 logWheelDestroy =   new LogWheelDestroy(
-                        (element.has("attackId") ? element.get("attackId").getAsInt() : 0),
-                        new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
-                        new Vehicle(element.get("vehicle").getAsJsonObject()),
-                        element.get("damageTypeCategory").getAsString(),
-                        element.get("damageCauserName").getAsString()
-                );
+                                        (element.has("attackId") ? element.get("attackId").getAsInt() : 0),
+                                        new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
+                                        new Vehicle(element.get("vehicle").getAsJsonObject()),
+                                        element.get("damageTypeCategory").getAsString(),
+                                        element.get("damageCauserName").getAsString()
+                                    );
+                accountId = element.get("attacker").getAsJsonObject().get("accountId").getAsString();
                 break;
         }
 
@@ -407,6 +432,10 @@ public class Event {
                 return logWheelDestroy.getAttacker().getLocation();
         }
         return new Location(0,0,0);
+    }
+
+    public String getAccountId() {
+        return accountId;
     }
 
     public LogArmorDestroy getLogArmorDestroy() {
@@ -524,6 +553,8 @@ public class Event {
     public LogWheelDestroy getLogWheelDestroy() {
         return logWheelDestroy;
     }
+
+
 
     public enum EventType {
     LogArmorDestroy, LogCarePackageLand, LogCarePackageSpawn, LogGameStatePeriodic, LogItemAttach, LogItemDetach,

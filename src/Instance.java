@@ -1,15 +1,16 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Instance {
 
     Match main;
     LinkedList<Circle> safetyzones;
+    LinkedList<LogGameStatePeriodic> gameStatePeriodics;
     LinkedList<Event> events;
 
     public Instance(String file) throws IOException {
@@ -17,25 +18,19 @@ public class Instance {
         this.events = main.getEvents();
         this.safetyzones = makeSafetyzones();
         this.sortAll();
-/*        for(Event e : events){
-            System.out.println(e.toString());
-        }*/
-        for(Circle c : safetyzones){
-            System.out.println(c.toString());
-        }
     }
 
     private LinkedList<Circle> makeSafetyzones(){
         LinkedList<Circle> temp = new LinkedList<>();
         for(Event event : this.events){
-            if(event.getEventType() == Event.EventType.LogGameStatePeriodic){ //  && event.getCommon().getIsGame() % 1 == 0 // && event.getCommon().getIsGame() >= 0.5
+            if(event.getEventType() == Event.EventType.LogGameStatePeriodic && event.getCommon().getIsGame() % 1 == 0){ //  && event.getCommon().getIsGame() % 1 == 0 // && event.getCommon().getIsGame() >= 0.5
                 Circle circle = new Circle(event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),event.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY(),event.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
                 circle.setStroke(Color.WHITE);
                 circle.setFill(Color.TRANSPARENT);
                 circle.setStrokeWidth(1);
                 circle.setId(event.getCommon().getIsGame()+"");
-                // CREATE SAFETYZONE OBJECT
                 temp.add(circle);
+                gameStatePeriodics.add(event.getLogGameStatePeriodic());
             }
         }
         return temp;
@@ -55,6 +50,8 @@ public class Instance {
         }
         );
     }
+
+    // GETTERS
 
     public Match getMain() {
         return main;

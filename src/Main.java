@@ -27,7 +27,6 @@ public class Main extends Application {
         int toolbarHeight = 25;
 
         Match main = new Match("match1.json");
-        Instance instanceOne = new Instance("match1.json");
 
         //Creating an image
         Image image = new Image(new FileInputStream(System.getProperty("user.dir")+"/src/Erangel_Main_High_Res_SMALL.jpg"));
@@ -222,35 +221,19 @@ public class Main extends Application {
         //Displaying the contents of the stage
         stage.show();
 
-        LinkedList<Double> deathDistances = new LinkedList<>();
-
-        // Death calculating
-        for(Event event:events){
-            if(event.getEventType() == Event.EventType.LogPlayerKill){ //  && event.getCommon().getIsGame() % 1 == 0
-                if(event.getLogPlayerKill().getSafezone() == null || event.getLogPlayerKill().getSafezone() == null) continue;
-                deathDistances.add(distance(
-                        event.getLogPlayerKill().getVictim().getLocation().getX(),
-                        event.getLogPlayerKill().getVictim().getLocation().getY(),
-                        event.getLogPlayerKill().getSafezone().getCenterX(),
-                        event.getLogPlayerKill().getSafezone().getCenterY()
-                ) / event.getLogPlayerKill().getSafezone().getRadius());
-            }
-        }
-        int centerSafetyzoneDeathAmount = 0;
-        int outerSafetyzoneDeathAmount = 0;
-        for(Double d:deathDistances){
-            if(d > 0.5) outerSafetyzoneDeathAmount++;
-            else centerSafetyzoneDeathAmount++;
-        }
-        System.out.println("centerSafetyzoneDeathAmount : " + centerSafetyzoneDeathAmount);
-        System.out.println("outerSafetyzoneDeathAmount : " + outerSafetyzoneDeathAmount);
-
     }
-    public static void main(String args[]) {
-        launch(args);
+    public static void main(String args[]) throws IOException {
+        //launch(args);
+        calculatePlayerAmountsInsideSafetyzone();
     }
 
     public double distance(float x1, float y1, double x2, double y2){
         return Math.sqrt(Math.pow((x1-x2),2) + Math.pow((y1-y2),2));
     }
+
+    public static void calculatePlayerAmountsInsideSafetyzone() throws IOException {
+        ZoneCalculator zoneCalculator = new ZoneCalculator("match1.json");
+
+    }
+
 }
