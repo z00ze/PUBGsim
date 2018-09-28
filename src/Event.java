@@ -371,7 +371,6 @@ public class Event {
 
     public Location getLocation(){
         switch(this.eventType){
-
             case LogArmorDestroy:
                 return logArmorDestroy.getVictim().getLocation();
             case LogCarePackageLand:
@@ -430,8 +429,9 @@ public class Event {
                 return logVehicleRide.getCharacter().getLocation();
             case LogWheelDestroy:
                 return logWheelDestroy.getAttacker().getLocation();
+            default:
+                return new Location(0,0,0);
         }
-        return new Location(0,0,0);
     }
 
     public String getAccountId() {

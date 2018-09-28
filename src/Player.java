@@ -5,16 +5,16 @@ import java.util.LinkedList;
 public class Player {
     String accountId;
     LinkedList<Event> events = new LinkedList<>();
-    Event phase1;
-    Event phase2;
-    Event phase3;
-    Event phase4;
-    Event phase5;
-    Event phase6;
-    Event phase7;
-    Event phase8;
-    Event phase9;
-    Event phase10;
+    Event phase1 = new Event();
+    Event phase2 = new Event();
+    Event phase3 = new Event();
+    Event phase4 = new Event();
+    Event phase5 = new Event();
+    Event phase6 = new Event();
+    Event phase7 = new Event();
+    Event phase8 = new Event();
+    Event phase9 = new Event();
+    Event phase10 = new Event();
     boolean[] insideSafetyzone = {false,false,false,false,false,false,false,false,false,false};
 
     public Player(String name) {
@@ -93,9 +93,9 @@ public class Player {
                 this.insideSafetyzone[4] = (distance(
                         event.getLocation().getX(),
                         event.getLocation().getY(),
-                        phase6.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase6.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase6.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
+                        phase5.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
+                        phase5.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
+                ) < phase5.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
             }
             if(event.getTime() >= phase6.getTime() && !this.insideSafetyzone[5]){
                 this.insideSafetyzone[0] = (distance(
@@ -140,6 +140,45 @@ public class Player {
         }
 
         return this.insideSafetyzone;
+    }
+    public Event getPhase1() {
+        return phase1;
+    }
+
+    public Event getPhase2() {
+        return phase2;
+    }
+
+    public Event getPhase3() {
+        return phase3;
+    }
+
+    public Event getPhase4() {
+        return phase4;
+    }
+
+    public Event getPhase5() {
+        return phase5;
+    }
+
+    public Event getPhase6() {
+        return phase6;
+    }
+
+    public Event getPhase7() {
+        return phase7;
+    }
+
+    public Event getPhase8() {
+        return phase8;
+    }
+
+    public Event getPhase9() {
+        return phase9;
+    }
+
+    public Event getPhase10() {
+        return phase10;
     }
 
     public double distance(float x1, float y1, double x2, double y2){

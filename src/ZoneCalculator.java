@@ -20,7 +20,7 @@ public class ZoneCalculator {
     Event phase8 = new Event();
     Event phase9 = new Event();
     Event phase10 = new Event();
-    int[] inside = new int[10];
+    double[] inside = new double[10];
 
 
 
@@ -36,7 +36,43 @@ public class ZoneCalculator {
             }
         }
         for(int i = 0; i < inside.length; i++){
-            System.out.println("Phase"+(i+1)+" in the zone : "+inside[i]);
+            switch (i){
+                case 0:
+                    double insidezone = inside[i];
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase1().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / ((insidezone != 0) ? insidezone : 1) ;
+                    break;
+                case 1:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase2().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 2:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase3().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 3:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase4().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 4:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase5().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 5:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase6().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 6:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase7().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 7:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase8().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 8:
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase9().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+                case 9:
+                    //inside[i] = (inside[i] == 0) ? 0 : inside[i] / players.get(0).getPhase10().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    break;
+            }
+            for(double d : inside){
+                System.out.println(d);
+            }
+
         }
         System.out.println("DONE!");
     }
