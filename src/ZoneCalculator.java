@@ -29,6 +29,10 @@ public class ZoneCalculator {
         this.events = main.getEvents();
         this.phases = new LinkedList<>();
         setPhases();
+        setSafetyZones();
+    }
+
+    private void setSafetyZones() {
         for(int i = 0; i < players.size(); i++){
             boolean[] inzone = players.get(i).getInsideSafetyzone();
             for(int a = 0; a < inzone.length; a++){
@@ -38,8 +42,7 @@ public class ZoneCalculator {
         for(int i = 0; i < inside.length; i++){
             switch (i){
                 case 0:
-                    double insidezone = inside[i];
-                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase1().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / ((insidezone != 0) ? insidezone : 1) ;
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase1().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
                     break;
                 case 1:
                     inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase2().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
@@ -66,15 +69,10 @@ public class ZoneCalculator {
                     inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase9().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
                     break;
                 case 9:
-                    //inside[i] = (inside[i] == 0) ? 0 : inside[i] / players.get(0).getPhase10().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
+                    inside[i] = (inside[i] == 0) ? 0 : players.get(0).getPhase10().getLogGameStatePeriodic().getGameState().getNumAlivePlayers() / inside[i];
                     break;
             }
-            for(double d : inside){
-                System.out.println(d);
-            }
-
         }
-        System.out.println("DONE!");
     }
 
     private void setPhases() {
@@ -169,8 +167,13 @@ public class ZoneCalculator {
 
     }
 
+    public LinkedList<Player> getPlayers() {
+        return players;
+    }
 
-
+    public double[] getInside() {
+        return inside;
+    }
 
     @Override
     public String toString() {

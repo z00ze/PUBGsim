@@ -24,7 +24,7 @@ public class Match {
     public Match(String filename) throws IOException {
 
         JsonParser parser = new JsonParser();
-        String json = openJsonFile("match1.json");
+        String json = openJsonFile(filename);
         JsonElement jsonTree = parser.parse(json);
         if(jsonTree.isJsonArray()) {
             JsonArray rootdata = jsonTree.getAsJsonArray();
@@ -71,7 +71,7 @@ public class Match {
     }
 
     public static String openJsonFile(String s) throws IOException {
-        File file = new File(System.getProperty("user.dir")+"/json/"+s);
+        File file = new File(s);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         StringBuilder everything = new StringBuilder();

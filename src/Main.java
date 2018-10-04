@@ -224,7 +224,7 @@ public class Main extends Application {
     }
     public static void main(String args[]) throws IOException {
         //launch(args);
-        calculatePlayerAmountsInsideSafetyzone();
+        //calculatePlayerAmountsInsideSafetyzone();
     }
 
     public double distance(float x1, float y1, double x2, double y2){
