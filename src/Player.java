@@ -15,6 +15,7 @@ public class Player {
     Event phase8 = new Event();
     Event phase9 = new Event();
     Event phase10 = new Event();
+    boolean[] ischeck = {false,false,false,false,false,false,false,false,false,false};
     boolean[] insideSafetyzone = {false,false,false,false,false,false,false,false,false,false};
 
     public Player(String name) {
@@ -51,134 +52,65 @@ public class Player {
     public boolean[] getInsideSafetyzone(){
 
         Collections.sort(this.events, (e1, e2) -> {
-                    if(e1.getTime() < e2.getTime()) return -1;
+                    if(e1.getTime() < e2.getTime()) return 1;
                     if(e1.getTime() == e2.getTime()) return 0;
-                    return 1;
+                    return -1;
                 }
         );
-        for(Event event:events){
-            if(event.getTime() >= phase1.getTime() && !this.insideSafetyzone[0]){
-                this.insideSafetyzone[0] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase1.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase1.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase1.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase2.getTime() && !this.insideSafetyzone[1]){
-                this.insideSafetyzone[1] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase2.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase2.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase2.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase3.getTime() && !this.insideSafetyzone[2]){
-                this.insideSafetyzone[2] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase3.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase3.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase3.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase4.getTime() && !this.insideSafetyzone[3]){
-                this.insideSafetyzone[3] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase4.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase4.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase4.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase5.getTime() && !this.insideSafetyzone[4]){
-                this.insideSafetyzone[4] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase5.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase5.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase5.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase6.getTime() && !this.insideSafetyzone[5]){
-                this.insideSafetyzone[0] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase6.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase6.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase6.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase7.getTime() && !this.insideSafetyzone[6]){
-                this.insideSafetyzone[6] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase7.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase7.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase7.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase8.getTime() && !this.insideSafetyzone[7]){
-                this.insideSafetyzone[7] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase8.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase8.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase8.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase9.getTime() && !this.insideSafetyzone[8]){
-                this.insideSafetyzone[8] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase9.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase9.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase9.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
-            }
-            if(event.getTime() >= phase10.getTime() && !this.insideSafetyzone[9]){
-                this.insideSafetyzone[9] = (distance(
-                        event.getLocation().getX(),
-                        event.getLocation().getY(),
-                        phase10.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
-                        phase10.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
-                ) < phase10.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
+        for(Event event:events) {
+            if(event.getAccountId().equals("") || event.getLocation().getX() == 0) continue;
+            if(event.getCommon().getIsGame() % 1 == 0.5 || event.getCommon().getIsGame() < 1){
+                int eventIsGame = 0;
+                if(event.getCommon().getIsGame() > 1){
+                    eventIsGame = (int) (event.getCommon().getIsGame()-0.5);
+                }
+
+                if(getPhase(eventIsGame).isDummy()) continue;
+                Event phase = getPhase(eventIsGame);
+
+                if(!ischeck[eventIsGame]){
+                    ischeck[eventIsGame] = true;
+                    if(event.getEventType() == Event.EventType.LogPlayerKill){
+                        this.insideSafetyzone[eventIsGame] = false;
+                    }
+                    else {
+                        this.insideSafetyzone[eventIsGame] = (distance(
+                                event.getLocation().getX(),
+                                event.getLocation().getY(),
+                                phase.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX(),
+                                phase.getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY()
+                        ) <= phase.getLogGameStatePeriodic().getGameState().getSafetyZoneRadius());
+                    }
+                }
             }
         }
-
         return this.insideSafetyzone;
     }
-    public Event getPhase1() {
-        return phase1;
-    }
 
-    public Event getPhase2() {
-        return phase2;
-    }
-
-    public Event getPhase3() {
-        return phase3;
-    }
-
-    public Event getPhase4() {
-        return phase4;
-    }
-
-    public Event getPhase5() {
-        return phase5;
-    }
-
-    public Event getPhase6() {
-        return phase6;
-    }
-
-    public Event getPhase7() {
-        return phase7;
-    }
-
-    public Event getPhase8() {
-        return phase8;
-    }
-
-    public Event getPhase9() {
-        return phase9;
-    }
-
-    public Event getPhase10() {
-        return phase10;
+    public Event getPhase(int i){
+        switch (i){
+            case 0 :
+                return phase1;
+            case 1 :
+                return phase2;
+            case 2 :
+                return phase3;
+            case 3 :
+                return phase4;
+            case 4 :
+                return phase5;
+            case 5 :
+                return phase6;
+            case 6 :
+                return phase7;
+            case 7 :
+                return phase8;
+            case 8 :
+                return phase9;
+            case 9 :
+                return phase10;
+        }
+        return new Event();
     }
 
     public double distance(float x1, float y1, double x2, double y2){

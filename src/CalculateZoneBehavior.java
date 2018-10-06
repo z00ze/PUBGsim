@@ -163,7 +163,6 @@ public class CalculateZoneBehavior {
             conn.setRequestProperty("Accept", "application/vnd.api+json");
             conn.setRequestProperty("Accept-Encoding", "gzip");
             conn.getInputStream();
-            JsonParser parser = new JsonParser();
 
             BufferedReader in = null;
             if ("gzip".equals(conn.getContentEncoding())) {
@@ -207,13 +206,46 @@ public class CalculateZoneBehavior {
     public static void calculateAll() throws IOException {
         File f = new File("json/");
         ArrayList<String> names = new ArrayList<>(Arrays.asList(f.list()));
-        for(String s : names){
-            System.out.println(s);
-            ZoneCalculator z = new ZoneCalculator("json/" + s);
-            for(Double d : z.getInside()){
-                System.out.print(d + " ");
+
+        try
+        {
+            FileWriter fw = new FileWriter("results/data.csv",true);
+            fw.write("EventType,Time,AccountId,X,Y,IsGame\n");
+            FileWriter fw2 = new FileWriter("results/zone.csv",true);
+            fw2.write("Time,IsGame,X,Y,R,nAlive\n");
+            int count = 0;
+            for(String s : names){
+                if(count == 1) break;
+                System.out.println(count);
+                ZoneCalculator z = new ZoneCalculator("json/" + s);
+                LinkedList<Event> events = z.getEvents();
+                for(int i = 0; i < events.size(); i++){
+                    if(events.get(i).getEventType() != Event.EventType.LogGameStatePeriodic) {
+                        fw.write(events.get(i).getEventType() + "," + events.get(i).getTime() + "," + events.get(i).getAccountId() + "," + events.get(i).getLocation().getX() + "," + events.get(i).getLocation().getY() + "," + events.get(i).getCommon().getIsGame()+"\n");
+                    }
+                    else{
+                        fw2.write(events.get(i).getTime() + "," + events.get(i).getCommon().getIsGame() + "," + events.get(i).getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getX() + "," + events.get(i).getLogGameStatePeriodic().getGameState().getSafetyZonePosition().getY() + "," + events.get(i).getLogGameStatePeriodic().getGameState().getSafetyZoneRadius() + "," + events.get(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers()+"\n");
+                    }
+                }
+                /*
+                for(int i = 0; i < z.getInside().length; i++){
+                    if(i == z.getInside().length-1){
+                        fw.write(z.getInside()[i]+"\n");
+                    }
+                    else{
+                        fw.write(z.getInside()[i]+",");
+                    }
+                }
+                */
+                count++;
             }
-            System.out.println();
+            fw.close();
+            fw2.close();
+
+        }
+        catch(IOException ioe)
+        {
+            System.err.println("IOException: " + ioe.getMessage());
         }
     }
 }

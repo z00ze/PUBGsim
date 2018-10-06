@@ -20,6 +20,7 @@ public class Match {
     Long _D; // epoch milli
     String _T;
     LinkedList<Event> events = new LinkedList<>();
+    Player longestPlayer;
 
     public Match(String filename) throws IOException {
 

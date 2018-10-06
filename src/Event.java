@@ -41,9 +41,15 @@ public class Event {
     LogVehicleLeave logVehicleLeave;
     LogVehicleRide logVehicleRide;
     LogWheelDestroy logWheelDestroy;
+    boolean isDummy = false;
 
     public Event(){
+        isDummy = true;
         this.time = 9999999999999l;
+    }
+
+    public boolean isDummy() {
+        return isDummy;
     }
 
     public Event(JsonObject element) {
@@ -241,12 +247,14 @@ public class Event {
                 logPlayerLogin =    new LogPlayerLogin(
                                     element.get("accountId").getAsString()
                                     );
+                this.accountId = element.get("accountId").getAsString();
                 break;
             case LogPlayerLogout:
                 // "accountId": string
                 logPlayerLogin =    new LogPlayerLogin(
                                         element.get("accountId").getAsString()
                                     );
+                this.accountId = element.get("accountId").getAsString();
                 break;
             case LogPlayerMakeGroggy:
                 // "attackId": int, "attacker": {Character}, "victim": {Character}, "damageTypeCategory": string,
