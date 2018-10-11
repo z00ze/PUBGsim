@@ -20,7 +20,7 @@ public class Match {
     Long _D; // epoch milli
     String _T;
     LinkedList<Event> events = new LinkedList<>();
-    Player longestPlayer;
+    boolean isCustomGame = false;
 
     public Match(String filename) throws IOException {
 
@@ -31,7 +31,10 @@ public class Match {
             JsonArray rootdata = jsonTree.getAsJsonArray();
             for (JsonElement element:rootdata) {
                 if(element.isJsonObject()){
-                    if(element.getAsJsonObject().get("_T").equals("LogMatchDefinition")){
+                    if(element.getAsJsonObject().get("_T").getAsString().equals("LogMatchStart")){
+                        isCustomGame = element.getAsJsonObject().get("isCustomGame").getAsBoolean();
+                    }
+                    if(element.getAsJsonObject().get("_T").getAsString().equals("LogMatchDefinition")){
                         this.MatchId = element.getAsJsonObject().get("MatchId").getAsString();
                         this.PingQuality = element.getAsJsonObject().get("PingQuality").getAsString();
                         DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_INSTANT;
@@ -49,6 +52,10 @@ public class Match {
             System.out.println("FAIL");
         }
 
+    }
+
+    public boolean isCustomGame() {
+        return isCustomGame;
     }
 
     public LinkedList<Event> getEvents() {

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class ZoneCalculator {
 
     Match main;
+    String matchId = "";
     LinkedList<Player> players = new LinkedList<>();
     LinkedList<Event> events;
     LinkedList<Event> phases;
@@ -26,10 +27,17 @@ public class ZoneCalculator {
 
     public ZoneCalculator(String file) throws IOException {
         this.main = new Match(file);
+        this.matchId = this.main.getMatchId();
         this.events = main.getEvents();
         this.phases = new LinkedList<>();
         setPhases();
         setSafetyZones();
+
+
+    }
+
+    public String getMatchId() {
+        return this.matchId;
     }
 
     private void setSafetyZones() {
@@ -44,9 +52,9 @@ public class ZoneCalculator {
         }
         for(int i = 0; i < this.inside.length; i++) {
             if (!getPhase(i).isDummy()){
-                if(this.inside[i] > getPhase(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers()){
+                /*if(this.inside[i] > getPhase(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers()){
                     System.out.println(inside[i] + " " + getPhase(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers());
-                }
+                }*/
                 this.inside[i] = (getPhase(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers() == 0) ? 0 : this.inside[i] / getPhase(i).getLogGameStatePeriodic().getGameState().getNumAlivePlayers();
                 if(this.inside[i] > 1) this.inside[i] = 1;
             }

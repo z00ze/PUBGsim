@@ -333,7 +333,7 @@ public class Event {
             case LogVehicleLeave:
                 // "character": {Character}, "vehicle": {Vehicle}, "rideDistance": number, "seatIndex": integer
                 logVehicleLeave =   new LogVehicleLeave(
-                                        new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
+                                        new Character((element.has("character") && element.get("character").isJsonObject()) ? element.get("character").getAsJsonObject() : new JsonObject()),
                                         new Vehicle(element.get("vehicle").getAsJsonObject()),
                                         element.get("rideDistance").getAsFloat(),
                                         element.get("seatIndex").getAsInt()
@@ -343,7 +343,7 @@ public class Event {
             case LogVehicleRide:
                 // "character": {Character}, "vehicle": {Vehicle}, "seatIndex": int
                 logVehicleRide =    new LogVehicleRide(
-                                    new Character((element.has("attacker") && element.get("attacker").isJsonObject()) ? element.get("attacker").getAsJsonObject() : new JsonObject()),
+                                    new Character((element.has("character") && element.get("character").isJsonObject()) ? element.get("character").getAsJsonObject() : new JsonObject()),
                                         new Vehicle(element.get("vehicle").getAsJsonObject()),
                                         (element.has("rideDistance")) ? element.get("rideDistance").getAsInt() : 0
                                     );
@@ -412,7 +412,7 @@ public class Event {
             case LogPlayerCreate:
                 return logPlayerCreate.getCharacter().getLocation();
             case LogPlayerKill:
-                return logPlayerKill.getKiller().getLocation();
+                return logPlayerKill.getVictim().getLocation();
             case LogPlayerLogin:
                 return new Location(0,0,0);
             case LogPlayerLogout:

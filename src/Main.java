@@ -217,7 +217,6 @@ public class Main extends Application {
 
         //Adding scene to the stage
         stage.setScene(scene);
-
         //Displaying the contents of the stage
         stage.show();
 
